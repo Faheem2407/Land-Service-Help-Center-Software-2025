@@ -1,48 +1,91 @@
-<p align="center">
-    <h1 align="center">❤️Laravel Stater Kit❤️</h1>
-</p>
+# 🌍 Land Service Assistance & Receipt Management System
 
-## Introduction 😍
+A complete real-life Laravel-based solution for generating digital receipts, managing land service centers, calculating processing charges, and automating land-service support operations.  
+This system is actively used in production by land service centers in Bangladesh.
 
-<p> A Laravel stater kit with a awesome admin panel setup, user login & logout, registration, status, delete, profile settings and system information and many more. </p>
+---
 
-## Contributor 😎
+## 📌 Overview
 
--   <a href="https://github.com/Faheem2407" target="_blank">Md Abed Hasan Fahim</a>
+This project provides an automated workflow for generating Bangla receipts, managing service-center details, user roles, fees, categories, and printing operations.  
+It includes a print-optimized A4 receipt layout for land-related digital services, aligned with real governmental service standards.
 
-## Installation 🤷‍♂
+Built using **Laravel**, this system features a robust backend, dynamic Blade views, and high-performance admin modules.
 
-To Install & Run This Project You Have To Follow Thoose Following Steps:
+---
 
-```sh
-git clone https://github.com/Faheem2407/Laravel-Stater-Kit-Skote.git
-```
+## ✨ Features
 
-```sh
-cd Laravel-Stater-Kit-Skote
-```
+### 🧾 Dynamic Receipt Generation
+- Bangla-language receipt template  
+- Auto-print functionality  
+- A4-optimized layout for physical receipts  
+- Processing + online charge calculation  
+- Dynamic receiver, category & service info  
+- Custom center branding (name, logo, address, contact)
 
-```sh
-composer update
-```
+### 🏢 Service Center Management
+- Manage center info (name, address, phone, mobile)  
+- Center in-charge & helper assignment  
+- Custom text fields for dynamic receipts  
 
-Open your `.env` file and change the database name (`DB_DATABASE`) to whatever you have, username (`DB_USERNAME`) and password (`DB_PASSWORD`) field correspond to your configuration
+### 👥 User Roles & Permissions
+- Admin panel  
+- Center in-charge  
+- Helpers/staff  
+- Customers  
 
-```sh
-php artisan key:generate
-```
+### 🗂️ Service & Category Management
+- Add/edit/delete land service categories  
+- Auto-binding to receipts and reports  
 
-```sh
-php artisan migrate:fresh --seed
-```
+### 💸 Fee & Charge System
+- Processing charge  
+- Online charge  
+- Automatic total calculation  
+- Display in Bangla number format  
 
-```sh
-php artisan optimize:clear
-```
+### 📊 Admin Dashboard
+- DataTables integration  
+- Order management  
+- Pending services  
+- Delivery assignment system  
 
-```sh
-php artisan serve
-```
+### 🖨️ Print Optimization
+- Clean A4 layout  
+- Exact color printing  
+- Browser print-friendly CSS  
+- Removes UI clutter for print media  
 
-For Admin Login `http://127.0.0.1:8000/admin` <br>
-Admin gmail = `admin@admin.com` & password = `12345678`
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| **Backend** | Laravel 12+ |
+| **Frontend** | Blade, HTML5, CSS3 |
+| **Database** | MySQL |
+| **Auth** | Laravel Breeze |
+| **Others** | Yajra DataTables |
+| **Server** | Ubuntu 22.04, Apache/Nginx |
+
+A4 Bangla Receipt:
+
+- ভূমিসেবা সহায়তা প্রদান বাবদ ফি গ্রহণের রশিদ  
+- সেবা গ্রহীতার নাম  
+- ভূমিসেবার নাম  
+- প্রসেসিং চার্জ + অনলাইন চার্জ = মোট ফি  
+- ইনচার্জের স্বাক্ষর ও কেন্দ্রের তথ্য  
+
+This project includes a full HTML/CSS template optimized for printing:
+
+```html
+ভূমিসেবা সহায়তা প্রদান বাবদ ফি গ্রহণের রশিদ
+সহায়তা কেন্দ্রের নাম, ঠিকানা, মোবাইল
+সেবা গ্রহীতার নাম
+ভূমিসেবার নাম
+গৃহীত ফি: প্রসেসিং + অনলাইন চার্জ = মোট
+
+👤 Author
+Developer: MD.Abed Hasan Fahim
