@@ -8,149 +8,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home</title>
-    {{-- FAVICON --}}
+    <title>Welcome - Land Service Help Center</title>
+
     <link rel="shortcut icon" type="image/x-icon"
         href="{{ isset($systemSetting->favicon) && !empty($systemSetting->favicon) ? asset($systemSetting->favicon) : asset('frontend/logo.png') }}" />
+
     <style>
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            margin: 0; padding: 0; box-sizing: border-box;
         }
 
-        html,
         body {
-            height: 100%;
-            width: 100%;
-            font-family: Arial, sans-serif;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            position: relative;
+            background: #eef2f7;
+            font-family: 'Inter', Arial, sans-serif;
         }
 
-        body {
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-color: #3b82f6;
-            /* Tailwind's bg-blue-500 */
+        .wrapper {
+            background: white;
+            max-width: 700px;
+            width: 100%;
+            padding: 40px 40px 50px;
+            border-radius: 14px;
             text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.10);
         }
 
-        .container {
-            text-align: center;
-        }
-
-        /* Heading styles */
         h1 {
-            font-size: 4rem;
-            /* text-6xl */
-            font-weight: bold;
-            /* font-bold */
-            color: white;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #1d3557;
+            margin-bottom: 10px;
         }
 
-        /* Paragraph and link styling */
-        .link {
-            font-size: 1rem;
-            /* text-md */
-            margin-top: 1rem;
-            /* mt-4 */
-            color: white;
+        p {
+            font-size: 1.1rem;
+            color: #5c677d;
+            margin-bottom: 35px;
+        }
+
+        .btn {
+            padding: 12px 32px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: 0.25s ease;
             text-decoration: none;
-        }
-
-        .author {
-            text-decoration: none;
-            /* Remove underline initially */
+            display: inline-block;
             color: white;
         }
 
-        .author:hover {
-            text-decoration: underline;
-            /* Hover effect for underline */
+        .btn-primary {
+            background-color: #1d72b8;
+        }
+
+        .btn-primary:hover {
+            background-color: #125a94;
+            transform: translateY(-2px);
         }
 
         .icon {
-            margin-right: 0.25rem;
-            /* mr-1 */
-            vertical-align: middle;
+            margin-right: 6px;
         }
 
-        .text-md {
-            font-size: 1rem;
-            /* equivalent to text-md */
-        }
-
-        .mt-4 {
-            margin-top: 1rem;
-            /* equivalent to mt-4 */
-        }
-
-        .text-white {
-            color: white;
-            /* equivalent to text-white */
-        }
-
-        .bg-blue-500 {
-            background-color: #3b82f6;
-        }
-
-        /* Button styles */
-        .login-btn,
-        .dashboard-btn {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            padding: 0.8em 2em;
-            font-size: 1.2em;
-            color: white;
-            background-color: rgba(0, 0, 0, 0.7);
-            text-decoration: none;
-            border-radius: 5px;
-            cursor: pointer;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-
-        .login-btn:hover,
-        .dashboard-btn:hover {
-            background-color: rgba(0, 0, 0, 0.9);
-            transform: scale(1.05);
-        }
-
-        @media (max-width: 600px) {
-
-            .login-btn,
-            .dashboard-btn {
-                padding: 0.6em 1.5em;
-                font-size: 1em;
-                bottom: 10px;
-                left: 10px;
-            }
+        @media(max-width:600px){
+            .wrapper { padding: 25px; }
+            h1 { font-size: 2.1rem; }
+            p { font-size: 1rem; }
         }
     </style>
 </head>
 
-<body class="flex items-center justify-center w-screen h-screen text-center bg-blue-500">
-    <div class="Box">
-        <h1 class="text-6xl font-bold text-white">Welcome Admin</h1>
-        <p class="mt-4 text-white text-md">
-            Use your login credential to access your dashboard.❤️
-        </p>
-    </div>
-    <div>
-        @if (Route::has('login'))
+<body>
+    <div class="wrapper">
+        <h1>Welcome to Land Service Help Center</h1>
+        <p>Please log in with your credentials to access your dashboard and manage your land services seamlessly.</p>
+
+        @if(Route::has('login'))
             @auth
-                <a href="{{ route('admin.dashboard') }}" class="dashboard-btn">
-                    Dashboard
+                <a href="{{ route('admin.dashboard') }}" class="btn btn-primary">
+                    <span class="icon">🏠</span> Go to Dashboard
                 </a>
             @else
-                <a href="{{ route('login') }}" class="login-btn">
-                    Log in
+                <a href="{{ route('login') }}" class="btn btn-primary">
+                    <span class="icon">🔑</span> Log In
                 </a>
             @endauth
         @endif

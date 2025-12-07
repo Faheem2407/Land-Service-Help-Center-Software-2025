@@ -4,7 +4,7 @@
             <div class="col-sm-6" style="font-size: 16px; color: #000">
                 <script>
                     document.write(new Date().getFullYear())
-                </script> © Beauty2024
+                </script> © Land Services Help Center
             </div>
         </div>
     </div>

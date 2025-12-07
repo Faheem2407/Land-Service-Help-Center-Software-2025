@@ -17,5 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SocialMediaSeeder::class);
         $this->call(SystemSettingSeeder::class);
         $this->call(DynamicPageSeeder::class);
+        $this->call(DistrictSeeder::class);
+        $this->call(SubDistrictSeeder::class);
     }
 }

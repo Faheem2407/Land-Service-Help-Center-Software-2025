@@ -6,108 +6,122 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     @include('backend.partials.style')
+
+    <style>
+        body {
+            background: #eef2f7;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .login-wrapper {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 480px;
+            background: white;
+            border-radius: 12px;
+            padding: 35px 40px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .login-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1d3557;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        label {
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        .form-control {
+            border-radius: 6px;
+            padding: 12px;
+            border: 1px solid #d4d8e0;
+            transition: 0.2s ease;
+        }
+
+        .form-control:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
+        }
+
+        .btn-primary {
+            padding: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            background-color: #1d72b8;
+            transition: 0.25s ease;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #125a94;
+            transform: translateY(-2px);
+        }
+
+        .input-group button {
+            border-radius: 0 6px 6px 0;
+        }
+    </style>
 </head>
 
-<body style="background: #4285F4;">
-    <div class="my-5 account-pages pt-sm-5">
-        <div class="container">
-            <div class="d-flex justify-content-center align-items-center" style="width: 100%; height: 80vh">
-                <div style="width: 500px">
-                    <div class="overflow-hidden card">
-                        <div class="pt-0 card-body">
-                            <div class="px-2 py-4">
-                                <form class="form-horizontal" action="{{ route('login') }}" method="POST">
-                                    @csrf
-                                    <div class="mb-10 text-center">
-                                        <h1 class="mb-3 text-dark"> Sign In </h1>
-                                    </div>
+<body>
+    <div class="login-wrapper">
+        <div class="login-card">
 
-                                    <div class="mb-10 fv-row">
-                                        @if (session('status'))
-                                        {{ session('status') }}
-                                        @endif
-                                    </div>
+            <h1 class="login-title">Sign In</h1>
 
-                                    <div class="mb-3">
-                                        <label for="email" class="form-label fs-5">Email</label>
-                                        <input type="text" name="email" class="form-control" id="email"
-                                            placeholder="Enter Email">
-                                        @error('email')
-                                        <span class="d-block text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
+            <form action="{{ route('login') }}" method="POST">
+                @csrf
 
-                                    <div class="mb-3">
-                                        <label class="form-label fs-5">Password</label>
-                                        <div class="input-group auth-pass-inputgroup">
-                                            <input type="password" class="form-control" name="password"
-                                                placeholder="Enter password" aria-label="Password"
-                                                aria-describedby="password-addon">
-                                            <button class="btn btn-light " type="button" id="password-addon">
-                                                <i class="mdi mdi-eye-outline"></i>
-                                            </button>
-                                        </div>
-                                        @error('password')
-                                        <span class="d-block text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
+                {{-- Status message --}}
+                @if (session('status'))
+                    <div class="alert alert-info mb-3">{{ session('status') }}</div>
+                @endif
 
-                                    <div class="mt-4 d-grid">
-                                        <button class="btn btn-primary waves-effect waves-light" type="submit">Log
-                                            In</button>
-                                    </div>
-                                </form>
-                            </div>
-                            {{-- <div class="p-10 mx-auto bg-white w-lg-500px p-lg-15" style="border-radius: 15px">
-                                <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form"
-                                    action="{{ route('login') }}" method="POST">
-                                    @csrf
-                                    <div class="mb-10 text-center">
-                                        <h1 class="mb-3 text-dark"> Sign In </h1>
-                                    </div>
-                                    <div class="mb-10 fv-row">
-                                        @if (session('status'))
-                                        {{ session('status') }}
-                                        @endif
-                                    </div>
-                                    <div class="mb-10 fv-row">
-                                        <label class="form-label fs-6 fw-bold text-dark">Email</label>
-                                        <input
-                                            class="form-control form-control-lg form-control-solid @error('email')  @enderror"
-                                            type="email" name="email" value="{{ old('email') }}" autocomplete="off" />
-                                        @error('email')
-                                        <span class="d-block text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                    <div class="mb-10 fv-row">
-                                        <div class="mb-2 d-flex flex-stack">
-                                            <label class="mb-0 form-label fw-bold text-dark fs-6">Password</label>
-                                        </div>
-                                        <input class="form-control form-control-lg form-control-solid" type="password"
-                                            name="password" autocomplete="off" />
-                                        @error('password')
-                                        <span class="d-block text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="text-center">
-                                        <button type="submit" id="kt_sign_in_submit"
-                                            class="mb-5 btn btn-lg btn-primary w-100">
-                                            <span class="indicator-label">
-                                                Log In
-                                            </span>
-                                        </button>
-                                    </div>
-                                </form>
-                            </div> --}}
-                        </div>
-                    </div>
+                {{-- Email --}}
+                <div class="mb-3">
+                    <label>Email</label>
+                    <input type="text" name="email" class="form-control" placeholder="Enter your email">
+                    @error('email')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
-            </div>
+
+                {{-- Password --}}
+                <div class="mb-3">
+                    <label>Password</label>
+                    <div class="input-group">
+                        <input type="password" name="password" class="form-control" placeholder="Enter password">
+                        <button class="btn btn-light" type="button" id="password-addon">
+                            <i class="mdi mdi-eye-outline"></i>
+                        </button>
+                    </div>
+                    @error('password')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                {{-- Submit button --}}
+                <div class="d-grid mt-4">
+                    <button class="btn btn-primary">Log In</button>
+                </div>
+
+            </form>
         </div>
     </div>
 
     @include('backend.partials.script')
 </body>
-
 </html>
