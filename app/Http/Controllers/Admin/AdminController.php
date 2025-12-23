@@ -3,30 +3,30 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\CostSource;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 use Yajra\DataTables\Facades\DataTables;
 
-class CostSourceController extends Controller
+class AdminController extends Controller
 {
     public function index(Request $request): View|JsonResponse
     {
         if ($request->ajax()) {
             try {
-                $query = CostSource::latest();
-
+                $query = User::where('role', 'admin')->latest();
                 return DataTables::of($query)
                     ->addIndexColumn()
                     ->addColumn('action', function ($data) {
                         return '
                             <div class="d-flex gap-2">
-                                <a href="' . route('admin.cost_sources.edit', $data->id) . '" 
+                                <a href="' . route('admin.admins.edit', $data->id) . '" 
                                    class="btn btn-sm btn-primary text-white px-3 py-2" 
                                    title="Edit">
                                     <i class="fa fa-edit me-1"></i>
@@ -43,23 +43,25 @@ class CostSourceController extends Controller
                     ->rawColumns(['action'])
                     ->make(true);
             } catch (Exception $e) {
-                Log::error('CostSource DataTable Error: ' . $e->getMessage());
+                Log::error('Admin DataTable Error: ' . $e->getMessage());
                 return response()->json(['error' => 'Server error'], 500);
             }
         }
 
-        return view('backend.admin.cost_sources.index');
+        return view('backend.admin.admins.index');
     }
 
     public function create(): View
     {
-        return view('backend.admin.cost_sources.create');
+        return view('backend.admin.admins.create');
     }
 
     public function store(Request $request): RedirectResponse
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255|unique:cost_sources,name',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:6|confirmed',
         ]);
 
         if ($validator->fails()) {
@@ -67,24 +69,31 @@ class CostSourceController extends Controller
         }
 
         try {
-            CostSource::create($request->only('name'));
-            return redirect()->route('admin.cost_sources.index')->with('t-success', 'Cost Source created successfully.');
+            User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'role' => 'admin'
+            ]);
+            return redirect()->route('admin.admins.index')->with('t-success', 'Admin created successfully.');
         } catch (Exception $e) {
-            Log::error('CostSource Store Error: ' . $e->getMessage());
+            Log::error('Admin Store Error: ' . $e->getMessage());
             return redirect()->back()->with('t-error', 'Something went wrong.');
         }
     }
 
     public function edit(int $id): View
     {
-        $source = CostSource::findOrFail($id);
-        return view('backend.admin.cost_sources.edit', compact('source'));
+        $admin = User::findOrFail($id);
+        return view('backend.admin.admins.edit', compact('admin'));
     }
 
     public function update(Request $request, int $id): RedirectResponse
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255|unique:cost_sources,name,' . $id,
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'password' => 'nullable|string|min:6|confirmed',
         ]);
 
         if ($validator->fails()) {
@@ -92,11 +101,17 @@ class CostSourceController extends Controller
         }
 
         try {
-            $source = CostSource::findOrFail($id);
-            $source->update($request->only('name'));
-            return redirect()->route('admin.cost_sources.index')->with('t-success', 'Cost Source updated successfully.');
+            $admin = User::findOrFail($id);
+            $admin->name = $request->name;
+            $admin->email = $request->email;
+            if ($request->password) {
+                $admin->password = Hash::make($request->password);
+            }
+            $admin->save();
+
+            return redirect()->route('admin.admins.index')->with('t-success', 'Admin updated successfully.');
         } catch (Exception $e) {
-            Log::error('CostSource Update Error: ' . $e->getMessage());
+            Log::error('Admin Update Error: ' . $e->getMessage());
             return redirect()->back()->with('t-error', 'Update failed.');
         }
     }
@@ -104,11 +119,11 @@ class CostSourceController extends Controller
     public function destroy(int $id): JsonResponse
     {
         try {
-            $source = CostSource::findOrFail($id);
-            $source->delete();
-            return response()->json(['success' => true, 'message' => 'Cost Source deleted successfully.']);
+            $admin = User::findOrFail($id);
+            $admin->delete();
+            return response()->json(['success' => true, 'message' => 'Admin deleted successfully.']);
         } catch (Exception $e) {
-            Log::error('CostSource Delete Error: ' . $e->getMessage());
+            Log::error('Admin Delete Error: ' . $e->getMessage());
             return response()->json(['success' => false, 'message' => 'Delete failed.'], 500);
         }
     }

@@ -3,20 +3,30 @@
 
 @section('page-content')
 
-<div class="toolbar" id="kt_toolbar">
-    <div class="container-fluid d-flex flex-stack flex-wrap">
-        <div class="d-flex flex-column align-items-start">
-            <h1 class="text-dark fw-bold fs-2">{{ $title ?? 'ড্যাশবোর্ড' }}</h1>
+<style>
+    .dashboard-card {
+        height: 140px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-            <ul class="breadcrumb fs-base fw-semibold">
-                <li class="breadcrumb-item">
-                    <a href="{{ route('admin.dashboard') }}" class="text-muted">হোম</a>
-                </li>
-                <li class="breadcrumb-item text-muted">{{ $title ?? 'ড্যাশবোর্ড' }}</li>
-            </ul>
-        </div>
-    </div>
-</div>
+    .dashboard-card .card-body {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .dashboard-card h1 {
+        font-size: 32px;
+        line-height: 1;
+    }
+
+    .dashboard-card i {
+        opacity: 0.85;
+    }
+</style>
 
 <section class="mt-0">
     <div class="container-fluid">
@@ -24,7 +34,7 @@
 
             <!-- মোট ব্যবহারকারী -->
             <div class="col-md-3 mt-4">
-                <div class="card shadow-sm">
+                <div class="card shadow-sm dashboard-card">
                     <div class="card-body d-flex justify-content-between">
                         <div>
                             <h1 class="fw-bold">{{ $total_users }}</h1>
@@ -39,7 +49,7 @@
 
             <!-- আজকের গ্রহণকারী -->
             <div class="col-md-3 mt-4">
-                <div class="card shadow-sm">
+                <div class="card shadow-sm dashboard-card">
                     <div class="card-body d-flex justify-content-between">
                         <div>
                             <h1 class="fw-bold">{{ $today_receivers }}</h1>
@@ -54,7 +64,7 @@
 
             <!-- মোট গ্রহণকারী -->
             <div class="col-md-3 mt-4">
-                <div class="card shadow-sm">
+                <div class="card shadow-sm dashboard-card">
                     <div class="card-body d-flex justify-content-between">
                         <div>
                             <h1 class="fw-bold">{{ $total_receivers }}</h1>
@@ -69,11 +79,11 @@
 
             <!-- আজকের প্রক্রিয়াকরণ চার্জ -->
             <div class="col-md-3 mt-4">
-                <div class="card shadow-sm">
+                <div class="card shadow-sm dashboard-card">
                     <div class="card-body d-flex justify-content-between">
                         <div>
                             <h1 class="fw-bold">{{ $today_processing_charge }}</h1>
-                            <h5 class="text-muted">আজকের প্রক্রিয়াকরণ চার্জ</h5>
+                            <h5 class="text-muted">আজকের সার্ভিস চার্জ</h5>
                         </div>
                         <div>
                             <i class="fas fa-money-bill fa-3x text-warning"></i>
@@ -84,11 +94,11 @@
 
             <!-- মোট প্রক্রিয়াকরণ চার্জ -->
             <div class="col-md-3 mt-4">
-                <div class="card shadow-sm">
+                <div class="card shadow-sm dashboard-card">
                     <div class="card-body d-flex justify-content-between">
                         <div>
                             <h1 class="fw-bold">{{ $total_processing_charge }}</h1>
-                            <h5 class="text-muted">মোট প্রক্রিয়াকরণ চার্জ</h5>
+                            <h5 class="text-muted">মোট সার্ভিস চার্জ</h5>
                         </div>
                         <div>
                             <i class="fas fa-coins fa-3x text-warning"></i>
@@ -99,7 +109,7 @@
 
             <!-- আজকের অনলাইন চার্জ -->
             <div class="col-md-3 mt-4">
-                <div class="card shadow-sm">
+                <div class="card shadow-sm dashboard-card">
                     <div class="card-body d-flex justify-content-between">
                         <div>
                             <h1 class="fw-bold">{{ $today_online_charge }}</h1>
@@ -114,7 +124,7 @@
 
             <!-- মোট অনলাইন চার্জ -->
             <div class="col-md-3 mt-4">
-                <div class="card shadow-sm">
+                <div class="card shadow-sm dashboard-card">
                     <div class="card-body d-flex justify-content-between">
                         <div>
                             <h1 class="fw-bold">{{ $total_online_charge }}</h1>
@@ -129,7 +139,7 @@
 
             <!-- আজকের খরচ -->
             <div class="col-md-3 mt-4">
-                <div class="card shadow-sm">
+                <div class="card shadow-sm dashboard-card">
                     <div class="card-body d-flex justify-content-between">
                         <div>
                             <h1 class="fw-bold">{{ $today_costs }}</h1>
@@ -144,7 +154,7 @@
 
             <!-- মোট খরচ -->
             <div class="col-md-3 mt-4 mb-5">
-                <div class="card shadow-sm">
+                <div class="card shadow-sm dashboard-card">
                     <div class="card-body d-flex justify-content-between">
                         <div>
                             <h1 class="fw-bold">{{ $total_costs }}</h1>
@@ -159,7 +169,7 @@
 
             <!-- আজকের মোট আয় -->
             <div class="col-md-3 mt-4">
-                <div class="card shadow-sm">
+                <div class="card shadow-sm dashboard-card">
                     <div class="card-body d-flex justify-content-between">
                         <div>
                             <h1 class="fw-bold">{{ $today_total_revenue }}</h1>
@@ -174,7 +184,7 @@
 
             <!-- মোট আয় -->
             <div class="col-md-3 mt-4">
-                <div class="card shadow-sm">
+                <div class="card shadow-sm dashboard-card">
                     <div class="card-body d-flex justify-content-between">
                         <div>
                             <h1 class="fw-bold">{{ $total_revenue }}</h1>

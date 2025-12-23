@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 use Yajra\DataTables\Facades\DataTables;
+use Carbon\Carbon;
+
 
 class CostController extends Controller
 {
@@ -35,18 +37,25 @@ class CostController extends Controller
                     ->addColumn('cost_source', fn($cost) => $cost->source?->name) 
                     ->addColumn('description', fn($cost) => $cost->description ?: '-') 
                     ->addColumn('amount', fn($cost) => number_format($cost->amount, 2))
-                    ->addColumn('action', function ($cost) {
+                    ->editColumn('date', function ($row) {
+                        return $row->date ? Carbon::parse($row->date)->format('Y-m-d') : '';
+                    })
+                    ->addColumn('action', function ($data) {
                         return '
-                            <div class="btn-group btn-group-sm">
-                                <a href="' . route('admin.costs.edit', $cost->id) . '" 
-                                   class="btn btn-primary text-white" title="Edit">
-                                   <i class="fa fa-edit"></i>
+                            <div class="d-flex gap-2">
+                                <a href="' . route('admin.costs.edit', $data->id) . '" 
+                                   class="btn btn-sm btn-primary text-white px-3 py-2" 
+                                   title="Edit">
+                                    <i class="fa fa-edit me-1"></i>
                                 </a>
-                                <button onclick="showDeleteConfirm(' . $cost->id . ')" 
-                                        class="btn btn-danger text-white" title="Delete">
-                                   <i class="fa fa-trash"></i>
+
+                                <button onclick="showDeleteConfirm(' . $data->id . ')" 
+                                        class="btn btn-sm btn-danger text-white px-3 py-2" 
+                                        title="Delete">
+                                    <i class="fa fa-trash me-1"></i>
                                 </button>
-                            </div>';
+                            </div>
+                        ';
                     })
                     ->rawColumns(['action'])
                     ->make(true);

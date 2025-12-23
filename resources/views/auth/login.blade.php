@@ -76,49 +76,68 @@
     </style>
 </head>
 
+@php
+    $systemSetting = App\Models\SystemSetting::first();
+@endphp
+
 <body>
     <div class="login-wrapper">
         <div class="login-card">
 
-            <h1 class="login-title">Sign In</h1>
+            <h1 class="login-title">{{ $systemSetting->title }}</h1>
 
-            <form action="{{ route('login') }}" method="POST">
-                @csrf
-
-                {{-- Status message --}}
-                @if (session('status'))
-                    <div class="alert alert-info mb-3">{{ session('status') }}</div>
-                @endif
-
-                {{-- Email --}}
-                <div class="mb-3">
-                    <label>Email</label>
-                    <input type="text" name="email" class="form-control" placeholder="Enter your email">
-                    @error('email')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
+            {{-- If user is already logged in, show Go to Dashboard --}}
+            @auth
+                <div class="text-center mb-4">
+                    <h3>You are already logged in</h3>
+                    <p>Click below to access your dashboard.</p>
                 </div>
 
-                {{-- Password --}}
-                <div class="mb-3">
-                    <label>Password</label>
-                    <div class="input-group">
-                        <input type="password" name="password" class="form-control" placeholder="Enter password">
-                        <button class="btn btn-light" type="button" id="password-addon">
-                            <i class="mdi mdi-eye-outline"></i>
-                        </button>
+                <a href="{{ route('admin.dashboard') }}" class="btn btn-primary w-100">
+                    Go to Dashboard
+                </a>
+            @else
+
+                {{-- Show login form only for guests --}}
+                <form action="{{ route('login') }}" method="POST">
+                    @csrf
+
+                    {{-- Status message --}}
+                    @if (session('status'))
+                        <div class="alert alert-info mb-3">{{ session('status') }}</div>
+                    @endif
+
+                    {{-- Email --}}
+                    <div class="mb-3">
+                        <label>Email</label>
+                        <input type="text" name="email" class="form-control" placeholder="Enter your email">
+                        @error('email')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
-                    @error('password')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
 
-                {{-- Submit button --}}
-                <div class="d-grid mt-4">
-                    <button class="btn btn-primary">Log In</button>
-                </div>
+                    {{-- Password --}}
+                    <div class="mb-3">
+                        <label>Password</label>
+                        <div class="input-group">
+                            <input type="password" name="password" class="form-control" placeholder="Enter password">
+                            <button class="btn btn-light" type="button" id="password-addon">
+                                <i class="mdi mdi-eye-outline"></i>
+                            </button>
+                        </div>
+                        @error('password')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
 
-            </form>
+                    {{-- Submit button --}}
+                    <div class="d-grid mt-4">
+                        <button class="btn btn-primary">Log In</button>
+                    </div>
+
+                </form>
+            @endauth
+
         </div>
     </div>
 

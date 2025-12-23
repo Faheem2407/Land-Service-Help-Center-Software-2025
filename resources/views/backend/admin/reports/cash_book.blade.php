@@ -2,6 +2,13 @@
 @section('title', 'ক্যাশ বুক রিপোর্ট')
 
 @section('page-content')
+<div class="toolbar" id="kt_toolbar">
+    <div class="container-fluid d-flex flex-stack flex-sm-nowrap flex-wrap">
+        <div class="d-flex flex-column align-items-start justify-content-center me-2 flex-wrap">
+            <h1 class="text-dark fw-bold fs-2">@yield('title')</h1><br>
+        </div>
+    </div>
+</div>
 <div class="container-fluid">
     <div class="card p-4">
         <!-- ফিল্টার ফর্ম -->
@@ -69,7 +76,7 @@
                 @foreach($costs as $index => $c)
                 <tr>
                     <td>{{ $index + 1 }}</td>
-                    <td>{{ $c->date }}</td>
+                    <td>{{ \Carbon\Carbon::parse($c->date)->format('Y-m-d') }}</td>
                     <td>{{ $c->source?->name }}</td>
                     <td>{{ $c->description }}</td>
                     <td>{{ number_format($c->amount, 2) }}</td>

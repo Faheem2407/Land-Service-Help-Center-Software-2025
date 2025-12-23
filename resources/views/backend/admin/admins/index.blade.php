@@ -1,5 +1,5 @@
 @extends('backend.app')
-@section('title', 'ক্যাটাগরি সমূহ')
+@section('title', 'সকল অ্যাডমিন')
 
 @section('page-content')
 <div class="toolbar" id="kt_toolbar">
@@ -14,8 +14,8 @@
     <div class="card p-4">
 
         <div class="d-flex justify-content-between mb-3">
-            <h5 class="fw-semibold">সকল ক্যাটেগরি</h5>
-            <a href="{{ route('admin.categories.create') }}" class="btn btn-primary btn-lg">নতুন ক্যাটেগরি যোগ করুন</a>
+            <h5 class="fw-semibold">সকল অ্যাডমিন</h5>
+            <a href="{{ route('admin.admins.create') }}" class="btn btn-primary btn-lg">নতুন অ্যাডমিন যোগ করুন</a>
         </div>
 
         <div class="table-responsive">
@@ -23,7 +23,8 @@
                 <thead class="table-light">
                     <tr>
                         <th>#</th>
-                        <th>ক্যাটেগরির নাম</th>
+                        <th>নাম</th>
+                        <th>ইমেইল</th>
                         <th>অ্যাকশন</th>
                     </tr>
                 </thead>
@@ -55,10 +56,11 @@ $(function () {
     const table = $('#data-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ route('admin.categories.index') }}",
+        ajax: "{{ route('admin.admins.index') }}",
         columns: [
             { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
             { data: 'name', name: 'name' },
+            { data: 'email', name: 'email' },
             { data: 'action', name: 'action', orderable: false, searchable: false },
         ],
         language: {
@@ -69,6 +71,11 @@ $(function () {
             </div>`
         }
     });
+
+    @if(session('t-success'))
+        toastr.success("{{ session('t-success') }}");
+        table.ajax.reload();
+    @endif
 
     window.showDeleteConfirm = function(id) {
         Swal.fire({
@@ -82,7 +89,7 @@ $(function () {
             cancelButtonText: 'বাতিল'
         }).then((result) => {
             if (result.isConfirmed) {
-                let url = '{{ route("admin.categories.destroy", ":id") }}'.replace(':id', id);
+                let url = '{{ route("admin.admins.destroy", ":id") }}'.replace(':id', id);
                 $.ajax({
                     url: url,
                     type: 'DELETE',

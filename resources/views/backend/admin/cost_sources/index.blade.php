@@ -5,13 +5,7 @@
 <div class="toolbar" id="kt_toolbar">
     <div class="container-fluid d-flex flex-stack flex-sm-nowrap flex-wrap">
         <div class="d-flex flex-column align-items-start justify-content-center me-2 flex-wrap">
-            <h1 class="text-dark fw-bold fs-2">@yield('title')</h1>
-            <ul class="breadcrumb fw-semibold fs-base ps-1">
-                <li class="breadcrumb-item text-muted">
-                    <a href="{{ route('admin.dashboard') }}" class="text-muted text-hover-primary">হোম</a>
-                </li>
-                <li class="breadcrumb-item text-muted">@yield('title')</li>
-            </ul>
+            <h1 class="text-dark fw-bold fs-2">@yield('title')</h1><br>
         </div>
     </div>
 </div>
@@ -49,6 +43,7 @@
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 <script>
 $(function () {
     $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
@@ -56,6 +51,9 @@ $(function () {
     const table = $('#data-table').DataTable({
         processing: true,
         serverSide: true,
+        responsive: false,       
+        scrollX: true,           
+        scrollCollapse: true,   
         ajax: "{{ route('admin.cost_sources.index') }}",
         columns: [
             { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },

@@ -2,6 +2,14 @@
 @section('title', 'নতুন ক্যাটাগরি')
 
 @section('page-content')
+<div class="toolbar" id="kt_toolbar">
+    <div class="container-fluid d-flex flex-stack flex-sm-nowrap flex-wrap">
+        <div class="d-flex flex-column align-items-start justify-content-center me-2 flex-wrap">
+            <h1 class="text-dark fw-bold fs-2">@yield('title')</h1><br>
+        </div>
+    </div>
+</div>
+
 <div class="container-fluid">
     <div class="card p-4">
         <form action="{{ route('admin.categories.store') }}" method="POST">

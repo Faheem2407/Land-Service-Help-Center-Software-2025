@@ -2,6 +2,13 @@
 @section('title', 'আয় রিপোর্ট')
 
 @section('page-content')
+<div class="toolbar" id="kt_toolbar">
+    <div class="container-fluid d-flex flex-stack flex-sm-nowrap flex-wrap">
+        <div class="d-flex flex-column align-items-start justify-content-center me-2 flex-wrap">
+            <h1 class="text-dark fw-bold fs-2">@yield('title')</h1><br>
+        </div>
+    </div>
+</div>
 <div class="container-fluid">
     <div class="card p-4">
         <form method="GET" class="row g-3 mb-4">
@@ -24,8 +31,8 @@
                 <tr>
                     <th>#</th>
                     <th>তারিখ</th>
-                    <th>SI নম্বর</th>
-                    <th>রসিদ নম্বর</th>
+                    <th>ক্রমিক নং</th>
+                    <th>রসিদ নং</th>
                     <th>গ্রাহকের নাম</th>
                     <th>বিভাগ</th>
                     <th>মোট চার্জ</th>

@@ -59,4 +59,9 @@ class User extends Authenticatable implements JWTSubject
         'id' => 'integer',
     ];
 
+    public function privileges()
+    {
+        return $this->hasMany(Privilege::class);
+    }
+
 }

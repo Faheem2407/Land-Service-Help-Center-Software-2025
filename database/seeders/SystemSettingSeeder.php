@@ -16,10 +16,10 @@ class SystemSettingSeeder extends Seeder
         SystemSetting::insert([
             [
                 'id'             => 1,
-                'title'          => 'The Title',
+                'title'          => 'ভুমি সেবা',
                 'email'          => 'support@gmail.com',
-                'system_name'    => 'Laravel',
-                'copyright_text' => 'Copyright © 2017 - 2024 DESIGN AND DEVELOPED BY ❤️',
+                'system_name'    => '017xxxxxxx',
+                'copyright_text' => 'ভুমি সেবা',
                 'logo'           => null,
                 'favicon'        => null,
                 'description'    => 'The Description',

@@ -13,7 +13,8 @@ Route::get('/migrate', [ResetController::class, 'migrate'])->name('migrate');
 Route::get('/storage', [ResetController::class, 'storage'])->name('storage');
 
 //! Route for Landing Page
-Route::get('/', [AuthenticatedSessionController::class, 'create'])->name('welcome');
+// Route::get('/', [HomeController::class, 'index'])->name('welcome');
+Route::get('/', [AuthenticatedSessionController::class, 'create'])->name('login');
 
 //Dynamic Page
 Route::get('/page/privacy-and-policy', [PageController::class, 'privacyAndPolicy'])->name('dynamicPage.privacyAndPolicy');

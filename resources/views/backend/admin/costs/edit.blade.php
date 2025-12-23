@@ -5,16 +5,7 @@
 <div class="toolbar" id="kt_toolbar">
     <div class="container-fluid d-flex flex-stack flex-sm-nowrap flex-wrap">
         <div class="d-flex flex-column align-items-start justify-content-center me-2 flex-wrap">
-            <h1 class="text-dark fw-bold fs-2">@yield('title')</h1>
-            <ul class="breadcrumb fw-semibold fs-base ps-1">
-                <li class="breadcrumb-item text-muted">
-                    <a href="{{ route('admin.dashboard') }}" class="text-muted text-hover-primary">হোম</a>
-                </li>
-                <li class="breadcrumb-item text-muted">
-                    <a href="{{ route('admin.costs.index') }}" class="text-muted text-hover-primary">খরচ</a>
-                </li>
-                <li class="breadcrumb-item text-muted">@yield('title')</li>
-            </ul>
+            <h1 class="text-dark fw-bold fs-2">@yield('title')</h1><br>
         </div>
     </div>
 </div>

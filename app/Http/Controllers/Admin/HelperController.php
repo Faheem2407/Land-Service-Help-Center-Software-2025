@@ -22,18 +22,22 @@ class HelperController extends Controller
                 $query = Helper::latest();
                 return DataTables::of($query)
                     ->addIndexColumn()
-                    ->addColumn('action', function ($helper) {
+                    ->addColumn('action', function ($data) {
                         return '
-                            <div class="btn-group btn-group-sm">
-                                <a href="' . route('admin.helpers.edit', $helper->id) . '" 
-                                   class="btn btn-primary text-white" title="Edit">
-                                   <i class="fa fa-edit"></i>
+                            <div class="d-flex gap-2">
+                                <a href="' . route('admin.helpers.edit', $data->id) . '" 
+                                   class="btn btn-sm btn-primary text-white px-3 py-2" 
+                                   title="Edit">
+                                    <i class="fa fa-edit me-1"></i>
                                 </a>
-                                <button onclick="showDeleteConfirm(' . $helper->id . ')" 
-                                        class="btn btn-danger text-white" title="Delete">
-                                   <i class="fa fa-trash"></i>
+
+                                <button onclick="showDeleteConfirm(' . $data->id . ')" 
+                                        class="btn btn-sm btn-danger text-white px-3 py-2" 
+                                        title="Delete">
+                                    <i class="fa fa-trash me-1"></i>
                                 </button>
-                            </div>';
+                            </div>
+                        ';
                     })
                     ->rawColumns(['action'])
                     ->make(true);

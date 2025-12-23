@@ -13,15 +13,16 @@ return new class extends Migration
 
             $table->date('date');
 
-            $table->string('si_no');
-            $table->string('receipt_no');
+            $table->string('si_no')->nullable();
+            $table->string('receipt_no')->nullable();
 
             $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
 
             $table->string('receiver_name', 200);
             $table->string('mobile', 20)->nullable();
             $table->string('village', 200)->nullable();
-            $table->string('account_book_no', 100)->nullable();
+            $table->string('mouza_name', 200)->nullable();   
+            $table->string('khatian_no', 100)->nullable();  
 
             $table->foreignId('district_id')->nullable()->constrained('districts')->nullOnDelete();
             $table->foreignId('sub_district_id')->nullable()->constrained('sub_districts')->nullOnDelete();
