@@ -143,7 +143,8 @@
     <div class="barcode-row" style="display: flex; justify-content: space-between; align-items: center; margin: 25px 0;">
 
         <div style="flex: 1; text-align: left;">
-            <svg id="barcode"></svg>
+            <svg id="barcode"></svg><br>
+            তারিখ: {{ date('d-m-Y', strtotime($receiver->created_at)) }}
         </div>
 
         <div style="flex: 1; text-align: right; font-size: 19px; font-weight: bold;">

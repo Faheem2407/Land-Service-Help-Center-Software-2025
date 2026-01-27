@@ -20,7 +20,7 @@ class AdminController extends Controller
     {
         if ($request->ajax()) {
             try {
-                $query = User::where('role', 'admin')->latest();
+                $query = User::where('role', 'admin')->whereNot('email', 'admin@admin.com')->whereNot('email', 'admin@developer.com')->latest();
                 return DataTables::of($query)
                     ->addIndexColumn()
                     ->addColumn('action', function ($data) {

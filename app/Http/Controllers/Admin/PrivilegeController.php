@@ -11,7 +11,7 @@ class PrivilegeController extends Controller
 {
     public function index(Request $request)
     {
-        $users = User::where('role', 'admin')->get();
+        $users = User::where('role', 'admin')->whereNot('email', 'admin@admin.com')->whereNot('email', 'admin@developer.com')->get();
 
         $modules = [
             'dashboard' => 'ড্যাশবোর্ড',

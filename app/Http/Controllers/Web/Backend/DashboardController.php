@@ -18,7 +18,7 @@ class DashboardController extends Controller
             ->sum('amount');
 
         return view('backend.layouts.index', [
-            'total_users' => User::count(),
+            'total_users' => User::whereNot('email', 'admin@admin.com')->whereNot('email', 'admin@developer.com')->count(),
             'today_receivers' => Receiver::whereDate('created_at', today())->count(),
             'total_receivers' => Receiver::count(),
             'today_processing_charge' => $sumTransaction('processing', today()),
