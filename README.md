@@ -1,7 +1,7 @@
-# 🌍 Land Service Assistance & Receipt Management System
+# 🌍 Land Service Assistance & Receipt Management System 
 
 A complete real-life Laravel-based solution for generating digital receipts, managing land service centers, calculating processing charges, and automating land-service support operations.  
-This system is actively used in production by land service centers in Bangladesh.
+This system is actively used in production by land service centers in Bangladesh (Jamalpur Branch).
 
 ---
 
